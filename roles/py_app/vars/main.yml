@@ -1,0 +1,4 @@
+---
+
+    app_repo: https://github.com/knopka/test_task_app.git
+    app_location: /tmp/python_web_app

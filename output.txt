@@ -1,0 +1,36 @@
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ ansible-playbook -i 'localhost, ' -c local playbook_web_server.yml 
+
+PLAY [all] *************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [Clone applicatin] ************************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Start application] ***********************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Fetch docker nginx image] ****************************************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [Start nginx] *****************************************************************************************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=5    changed=4    unreachable=0    failed=0   
+
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+1111c017ddbf        nginx               "nginx -g 'daemon ..."   59 seconds ago      Up 58 seconds       0.0.0.0:8000->80/tcp   docker-nginx
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XGET http://185.203.117.231:8000/
+There were 0POST requestsusernews@unassigned-hostname:~/tmpdataparse/test_task$ 
+usernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
+POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
+POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
+POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XGET http://185.203.117.231:8000/
+There were 3POST requestsusernews@unassigned-hostname:~/tmpdataparse/test_task$

@@ -1,0 +1,10 @@
+---
+
+    - name: APP | Clone applicatin
+      git:
+       repo: "{{ app_repo }}"
+       dest: "{{ app_location }}"
+       update: yes
+
+    - name: APP | Start application
+      raw: python3 {{ app_location }}/web_server.py > /dev/null 2>&1 &

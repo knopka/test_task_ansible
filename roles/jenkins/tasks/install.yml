@@ -1,0 +1,18 @@
+---
+
+    - name: JENKINS | Fetch docker Jenkins image
+      raw: docker pull jenkins
+
+    - name: JENKINS | copy war to Dockerfile dir
+      raw: cp /tmp/python_web_app/jenkins.war {{ playbook_dir }}
+
+    - name: JENKINS | Build docker Jenkins image
+      raw: docker build -t jenkins_1656_1 .
+
+    - name: JENKINS | Preparation for run container
+      raw: mkdir {{ jen_dir}}&&chown 1000 {{ jen_dir}}
+      
+
+    - name: JENKINS | Start Jenkins
+      raw: docker run -d -p 49001:8080 -v {{ jen_dir}}:/var/jenkins_home:z -t jenkins_1656_1
+
