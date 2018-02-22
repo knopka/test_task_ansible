@@ -1,36 +1,92 @@
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ ansible-playbook -i 'localhost, ' -c local playbook_web_server.yml 
+roonyk@roonyk-box:~/test_task/test_task_ansible$ ansible-playbook -i 'localhost, ' -c local deploy.yml --ask-become-pass
+SUDO password: 
 
 PLAY [all] *************************************************************************************************************************************************************************************************
 
 TASK [Gathering Facts] *************************************************************************************************************************************************************************************
 ok: [localhost]
 
-TASK [Clone applicatin] ************************************************************************************************************************************************************************************
+TASK [nginx : NGINX | Install NGINX] ***********************************************************************************************************************************************************************
 changed: [localhost]
 
-TASK [Start application] ***********************************************************************************************************************************************************************************
+TASK [nginx : NGINX | Starting NGINX] **********************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [nginx : NGINX | Setup NGINX conf] ********************************************************************************************************************************************************************
 changed: [localhost]
 
-TASK [Fetch docker nginx image] ****************************************************************************************************************************************************************************
+TASK [py_app : APP | Clone applicatin] *********************************************************************************************************************************************************************
 changed: [localhost]
 
-TASK [Start nginx] *****************************************************************************************************************************************************************************************
+TASK [py_app : APP | Start application] ********************************************************************************************************************************************************************
+changed: [localhost]
+
+RUNNING HANDLER [nginx : restart nginx] ********************************************************************************************************************************************************************
 changed: [localhost]
 
 PLAY RECAP *************************************************************************************************************************************************************************************************
-localhost                  : ok=5    changed=4    unreachable=0    failed=0   
+localhost                  : ok=7    changed=5    unreachable=0    failed=0   
 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ docker ps -a
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
-1111c017ddbf        nginx               "nginx -g 'daemon ..."   59 seconds ago      Up 58 seconds       0.0.0.0:8000->80/tcp   docker-nginx
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XGET http://185.203.117.231:8000/
-There were 0POST requestsusernews@unassigned-hostname:~/tmpdataparse/test_task$ 
-usernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
-POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
-POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XPOST http://185.203.117.231:8000/
-POST requestusernews@unassigned-hostname:~/tmpdataparse/test_task$ curl -XGET http://185.203.117.231:8000/
-There were 3POST requestsusernews@unassigned-hostname:~/tmpdataparse/test_task$
+roonyk@roonyk-box:~/test_task/test_task_ansible$
+
+
+
+roonyk@roonyk-box:~$ curl -XGET http://localhost
+There were 0 POST requestsroonyk@roonyk-box:~$ 
+roonyk@roonyk-box:~$ curl -XPOST http://localhost
+POST requestroonyk@roonyk-box:~$ curl -XPOST http://localhost
+POST requestroonyk@roonyk-box:~$ curl -XGET http://localhost
+There were 2 POST requestsroonyk@roonyk-box:~$
+
+
+
+
+roonyk@roonyk-box:~/test_task/test_task_ansible$ ansible-playbook -i 'localhost, ' -c local jenkins_install.yml --ask-become-pass
+SUDO password: 
+
+PLAY [all] *************************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************************
+ok: [localhost]
+
+TASK [jenkins : JENKINS | Fetch docker Jenkins image] ******************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [jenkins : JENKINS | copy war to Dockerfile dir] ******************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [jenkins : JENKINS | Build docker Jenkins image] ******************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [jenkins : JENKINS | Preparation for run container] ***************************************************************************************************************************************************
+changed: [localhost]
+
+TASK [jenkins : JENKINS | Start Jenkins] *******************************************************************************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *************************************************************************************************************************************************************************************************
+localhost                  : ok=6    changed=5    unreachable=0    failed=0   
+
+roonyk@roonyk-box:~/test_task/test_task_ansible$
+
+
+
+
+roonyk@roonyk-box:~/test_task/test_task_ansible$ ansible-playbook -i 'localhost, ' -c local jenkins_job.yml --ask-become-pass
+SUDO password: 
+
+PLAY [all] *********************************************************************************************************************************************
+
+TASK [Gathering Facts] *********************************************************************************************************************************
+ok: [localhost]
+
+TASK [jenkins : JENKINS | Install libs] ****************************************************************************************************************
+changed: [localhost]
+
+TASK [jenkins : JENKINS | Create Jenkins job] **********************************************************************************************************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************************************************************************************
+localhost                  : ok=3    changed=2    unreachable=0    failed=0   
+
+roonyk@roonyk-box:~/test_task/test_task_ansible$
